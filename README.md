@@ -1,19 +1,19 @@
 # E-commerce Sales Analytics
 
-Projet de portfolio data visant à analyser et prédire les ventes d’un e-commerce à partir du dataset public Olist.
+End-to-end data portfolio project focused on e-commerce sales analysis and prediction using the public Olist dataset.
 
-## Objectifs
-- Charger et nettoyer les données
-- Réaliser une analyse exploratoire
-- Stocker les données dans une base SQL
-- Produire des analyses business
-- Construire un modèle de prédiction des ventes
-- Développer un dashboard ou une application
+## Project Goals
+- Load and clean e-commerce sales data
+- Perform exploratory data analysis
+- Store data in a SQL database
+- Produce business-oriented SQL analyses
+- Build a sales prediction model
+- Develop a dashboard or application for insights delivery
 
 ## Dataset
 - Olist Brazilian E-Commerce Public Dataset
 
-## Stack
+## Tech Stack
 - Python
 - Pandas
 - NumPy
@@ -22,16 +22,21 @@ Projet de portfolio data visant à analyser et prédire les ventes d’un e-comm
 - Streamlit
 
 ## Project Structure
-- `data/`
-- `notebooks/`
-- `src/`
-- `sql/`
-- `app/`
+- `data/`: raw and processed data
+- `notebooks/`: audit, cleaning, analysis, and modeling notebooks
+- `src/`: reusable Python code
+- `sql/`: SQL scripts and business queries
+- `app/`: dashboard or API application
 
 ## Current Progress
 - [x] Project setup
 - [x] Initial data audit
-- [ ] Data cleaning
-- [ ] SQL modeling
-- [ ] Dashboard
-- [ ] Machine learning
+- [x] Initial cleaning and date conversion
+- [ ] Analytical table construction
+- [ ] Business analysis with SQL
+- [ ] Dashboard creation
+- [ ] Sales prediction model
+- [ ] Deployment
+
+## Current Focus
+The project currently includes dataset auditing, datetime conversion, key validation, and preparation of a clean orders table for downstream analytics and machine learning.
