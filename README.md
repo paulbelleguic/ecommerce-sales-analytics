@@ -32,11 +32,12 @@ End-to-end data portfolio project focused on e-commerce sales analysis and predi
 - [x] Project setup
 - [x] Initial data audit
 - [x] Initial cleaning and date conversion
-- [ ] Analytical table construction
+- [x] Analytical table construction
 - [ ] Business analysis with SQL
 - [ ] Dashboard creation
 - [ ] Sales prediction model
 - [ ] Deployment
 
 ## Current Focus
-The project currently includes dataset auditing, datetime conversion, key validation, and preparation of a clean orders table for downstream analytics and machine learning.
+The project now includes data auditing, initial cleaning, datetime conversion, and construction of an order-level analytical table for downstream business analysis and machine learning.
+
