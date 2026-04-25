@@ -1,8 +1,10 @@
 from pathlib import Path
 import sqlite3
 
+import joblib
 import pandas as pd
 import streamlit as st
+
 
 st.set_page_config(
     page_title="E-commerce Sales Dashboard",
@@ -11,6 +13,12 @@ st.set_page_config(
 )
 
 DB_PATH = Path(__file__).resolve().parents[1] / "data" / "processed" / "ecommerce.db"
+MODEL_PATH = Path(__file__).resolve().parents[1] / "models" / "baseline_sales_model.joblib"
+
+
+@st.cache_resource
+def load_model():
+    return joblib.load(MODEL_PATH)
 
 
 @st.cache_data
@@ -26,6 +34,8 @@ def load_data() -> pd.DataFrame:
         lambda x: "Late" if x > 0 else "On time / Early"
     )
     return df
+
+model = load_model()
 
 
 def format_currency(value: float) -> str:
@@ -62,15 +72,15 @@ st.markdown(
         opacity: 0.92;
     }
     .insight-box {
-        background: #eef6ff;
-        border-left: 6px solid #2563eb;
-        padding: 16px 18px;
-        border-radius: 14px;
-        margin: 8px 0 18px 0;
-        color: #0f172a;
+    background: #eef6ff;
+    border-left: 6px solid #2563eb;
+    padding: 16px 18px;
+    border-radius: 14px;
+    margin: 8px 0 18px 0;
+    color: #0f172a;
     }
     .insight-box strong {
-        color: #0b3b91;
+    color: #0b3b91;
     }
     .section-title {
         margin-top: 10px;
@@ -112,6 +122,7 @@ with st.sidebar:
 filtered_df = df[
     df["purchase_year"].isin(selected_years) & df["customer_state"].isin(selected_states)
 ].copy()
+
 
 if show_late_only:
     filtered_df = filtered_df[filtered_df["delivery_status"] == "Late"].copy()
@@ -259,3 +270,55 @@ st.caption(
     "Data source: Olist Brazilian E-Commerce Public Dataset. "
     "Dashboard scope: delivered orders only."
 )
+
+model = load_model()
+st.divider()
+st.markdown("### Sales Value Prediction")
+
+st.markdown(
+    "Estimate the expected order value using the baseline machine learning model."
+)
+
+pred_col1, pred_col2, pred_col3 = st.columns(3)
+
+with pred_col1:
+    input_purchase_year = st.selectbox("Purchase Year", sorted(df["purchase_year"].dropna().unique()))
+    input_purchase_month = st.selectbox("Purchase Month", list(range(1, 13)))
+    input_purchase_day = st.slider("Purchase Day", 1, 31, 15)
+    input_purchase_hour = st.slider("Purchase Hour", 0, 23, 12)
+
+with pred_col2:
+    input_purchase_dayofweek = st.selectbox(
+        "Purchase Day of Week",
+        options=[0, 1, 2, 3, 4, 5, 6],
+        format_func=lambda x: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][x],
+    )
+    input_customer_state = st.selectbox(
+        "Customer State",
+        sorted(df["customer_state"].dropna().unique())
+    )
+    input_n_items = st.slider("Number of Items", 1, 10, 1)
+    input_n_unique_products = st.slider("Unique Products", 1, 10, 1)
+
+with pred_col3:
+    input_n_unique_sellers = st.slider("Unique Sellers", 1, 5, 1)
+    input_payment_installments_max = st.slider("Payment Installments", 1, 24, 1)
+
+input_data = pd.DataFrame(
+    {
+        "purchase_year": [input_purchase_year],
+        "purchase_month": [input_purchase_month],
+        "purchase_day": [input_purchase_day],
+        "purchase_hour": [input_purchase_hour],
+        "purchase_dayofweek": [input_purchase_dayofweek],
+        "customer_state": [input_customer_state],
+        "n_items": [input_n_items],
+        "n_unique_products": [input_n_unique_products],
+        "n_unique_sellers": [input_n_unique_sellers],
+        "payment_installments_max": [input_payment_installments_max],
+    }
+)
+
+if st.button("Predict Order Value"):
+    prediction = model.predict(input_data)[0]
+    st.success(f"Predicted Order Value: ${prediction:,.2f}")
