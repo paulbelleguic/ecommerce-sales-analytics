@@ -18,6 +18,7 @@ End-to-end data portfolio project focused on e-commerce sales analysis and predi
 - Pandas
 - NumPy
 - SQL
+- SQLite
 - Scikit-learn
 - Streamlit
 
@@ -34,10 +35,11 @@ End-to-end data portfolio project focused on e-commerce sales analysis and predi
 - [x] Initial cleaning and date conversion
 - [x] Analytical table construction
 - [x] Business analysis and KPI exploration
-- [ ] SQL database integration
-- [ ] Dashboard creation
-- [ ] Sales prediction model
+- [x] SQL database integration
+- [x] Dashboard creation
+- [x] Baseline sales prediction model
+- [ ] Model improvement and tuning
 - [ ] Deployment
 
 ## Current Focus
-The project now includes data auditing, initial cleaning, datetime conversion, construction of an order-level analytical table, and first business KPI analyses on delivered e-commerce orders.
+The project now includes data auditing, analytical table construction, SQL-based business analysis, a Streamlit dashboard, and a first regression baseline for sales prediction.
