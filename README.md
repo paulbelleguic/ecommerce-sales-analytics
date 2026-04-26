@@ -10,9 +10,13 @@ This project was built as a complete data workflow similar to a professional ana
 - SQL integration with SQLite
 - interactive Streamlit dashboard
 - baseline machine learning model for order value prediction
+- public deployment of the final app
 
 ## Business Objective
 The goal is to analyze e-commerce sales performance and build a first predictive model able to estimate the total value of a delivered order from a set of order-level features.
+
+## Live App
+- [Streamlit Dashboard](https://fgwxckwvqwefghgqe3ursh.streamlit.app/)
 
 ## Dataset
 - Olist Brazilian E-Commerce Public Dataset
@@ -49,6 +53,7 @@ The goal is to analyze e-commerce sales performance and build a first predictive
 - Streamlit dashboard with interactive filters
 - Baseline regression model for sales value prediction
 - Prediction interface integrated into the dashboard
+- Publicly deployed interactive application
 
 ## Key Insight
 Late deliveries are strongly associated with lower customer satisfaction. In the analysis, delayed orders received significantly lower average review scores than on-time or early deliveries.
@@ -63,7 +68,7 @@ Late deliveries are strongly associated with lower customer satisfaction. In the
 - [x] Dashboard creation
 - [x] Baseline sales prediction model
 - [x] Prediction interface integrated into the dashboard
-- [ ] Public deployment
+- [x] Public deployment
 - [ ] Final project polishing
 
 ## Run Locally
