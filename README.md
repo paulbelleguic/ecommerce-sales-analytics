@@ -1,77 +1,211 @@
-# E-commerce Sales Analytics
+# E-Commerce Sales Analytics
 
-End-to-end data portfolio project focused on e-commerce sales analysis, dashboarding, and sales value prediction using the public Olist dataset.
+An end-to-end data analytics and machine learning project built on the **Olist Brazilian E-Commerce Public Dataset**.  
+The goal of this project is to transform raw transactional data into a professional analytics workflow including:
+
+- data cleaning and preparation
+- business KPI analysis
+- SQL integration
+- interactive dashboarding with Streamlit
+- predictive modeling for order value estimation
 
 ## Project Overview
-This project was built as a complete data workflow similar to a professional analytics / machine learning project:
-- raw data audit and cleaning
-- analytical table construction
-- business KPI analysis
-- SQL integration with SQLite
-- interactive Streamlit dashboard
-- baseline machine learning model for order value prediction
-- public deployment of the final app
 
-## Business Objective
-The goal is to analyze e-commerce sales performance and build a first predictive model able to estimate the total value of a delivered order from a set of order-level features.
+This project simulates a real-world data analyst / junior data scientist workflow.
 
-## Live App
-- [Streamlit Dashboard](https://fgwxckwvqwefghgqe3ursh.streamlit.app/)
+Starting from raw e-commerce data, I:
+- audited and explored the dataset
+- cleaned and standardized key variables
+- built an analytical table at the order level
+- analyzed business performance across time, geography, and logistics
+- stored processed data in SQLite for reproducible querying
+- created an interactive Streamlit dashboard
+- trained a baseline machine learning model to predict customer order value
 
 ## Dataset
-- Olist Brazilian E-Commerce Public Dataset
+
+Source: **Olist Brazilian E-Commerce Public Dataset**
+
+The dataset contains information about:
+- orders
+- order items
+- payments
+- products
+- customers
+- sellers
+- reviews
+- geolocation
+- delivery dates
+
+It provides a rich business case for sales analysis, customer behavior, and logistics performance.
+
+## Main Objectives
+
+The project answers several business questions such as:
+- How is revenue evolving over time?
+- Which states and cities generate the most sales?
+- How long do deliveries take on average?
+- What is the impact of late delivery on customer satisfaction?
+- Can we predict the total value of an order using available business features?
+
+## Workflow
+
+### 1. Data Audit
+Initial exploration of the raw files:
+- schema inspection
+- missing values analysis
+- duplicates check
+- data types review
+- first business observations
+
+### 2. Data Cleaning
+Preparation steps included:
+- date conversion to datetime format
+- null value inspection
+- harmonization of columns
+- creation of analysis-ready features
+
+### 3. Analytical Table Construction
+A final order-level table was created to support analysis and modeling.
+
+Example derived metrics:
+- total order value
+- number of items per order
+- freight cost
+- delivery delay
+- order status
+- customer location
+- review score
+
+### 4. Business Analysis
+Key analyses performed:
+- total revenue
+- average order value
+- monthly sales evolution
+- top-performing states and cities
+- delivery performance
+- relationship between delivery delay and review score
+
+### 5. SQL Integration
+Processed data was stored in a SQLite database to make the project more production-oriented.
+
+This allowed:
+- reproducible KPI queries
+- SQL-based validation of business results
+- a cleaner analytics pipeline
+
+### 6. Interactive Dashboard
+A Streamlit dashboard was developed to make the analysis accessible through an interactive interface.
+
+Main dashboard components:
+- KPI cards
+- time series charts
+- geographic performance views
+- logistics insights
+- filtered exploration
+- machine learning prediction section
+
+### 7. Machine Learning
+A regression model was trained to predict **total order value**.
+
+Models explored:
+- Random Forest Regressor baseline
+- HistGradientBoostingRegressor improvement
+
+Evaluation metrics included:
+- MAE
+- RMSE
+- R²
+
+Special care was taken to avoid **data leakage** by excluding variables that directly reveal the target.
 
 ## Tech Stack
-- Python
-- Pandas
-- NumPy
-- SQL
-- SQLite
-- Scikit-learn
-- Joblib
-- Streamlit
+
+- **Python**
+- **Pandas**
+- **NumPy**
+- **Matplotlib / Seaborn**
+- **Scikit-learn**
+- **SQLite**
+- **Streamlit**
+- **Joblib**
+
+## Key Insights
+
+- Sales are concentrated in a limited number of regions.
+- Delivery performance has a measurable effect on customer satisfaction.
+- Order value varies significantly depending on basket composition and logistics variables.
+- A baseline machine learning model can capture part of the variability in order value, though there is still room for improvement.
+
+## Deployment
+
+The project is deployed on Streamlit Community Cloud.
+
+Live app: https://ecommerce-sales-analytics-el8b4nsxcuw8emmu8f9idw.streamlit.app/
+
+## Model Limitations
+
+- The prediction task is simplified to order value regression.
+- Feature engineering can be extended further.
+- Hyperparameter tuning remains limited.
+- No advanced model tracking or deployment pipeline has been added yet.
+
+## How to Run the Project
+
+1. Clone the repository
+
+git clone https://github.com/paulbelleguic/ecommerce-sales-analytics.git
+cd ecommerce-sales-analytics
+
+2. Install dependencies
+pip install -r requirements.txt
+
+3. Launch the Streamlit app
+streamlit run app/dashboard.py
+
+## What This Project Demonstrates
+
+This project highlights skills in:
+data cleaning
+exploratory data analysis
+KPI design
+SQL usage
+dashboard development
+machine learning fundamentals
+end-to-end project
+
+## Author
+Paul Belleguic
+Portfolio project in data analytics / data science focused on transforming raw business data into actionable insights and deployable tools
+
+## Future Improvements
+Possible next steps:
+add customer segmentation
+build a delivery delay classification model
+integrate more advanced visual storytelling
+add automated retraining or experiment tracking
+improve feature engineering for stronger predictive performance
 
 ## Project Structure
-- `data/raw/`: raw source files
-- `data/processed/`: processed assets and SQLite database
-- `notebooks/`: audit, business analysis, and machine learning notebooks
-- `models/`: saved ML pipeline
-- `sql/`: SQL scripts and business queries
-- `app/`: Streamlit dashboard application
 
-## Main Deliverables
-- Initial data audit across relational e-commerce tables
-- Order-level analytical dataset (`delivered_sales`)
-- Business KPI analysis:
-  - revenue
-  - average order value
-  - customer distribution
-  - monthly trends
-  - geography
-  - delivery performance
-- SQLite integration for SQL querying
-- Streamlit dashboard with interactive filters
-- Baseline regression model for sales value prediction
-- Prediction interface integrated into the dashboard
-- Publicly deployed interactive application
-
-## Key Insight
-Late deliveries are strongly associated with lower customer satisfaction. In the analysis, delayed orders received significantly lower average review scores than on-time or early deliveries.
-
-## Current Progress
-- [x] Project setup
-- [x] Initial data audit
-- [x] Initial cleaning and date conversion
-- [x] Analytical table construction
-- [x] Business analysis and KPI exploration
-- [x] SQL database integration
-- [x] Dashboard creation
-- [x] Baseline sales prediction model
-- [x] Prediction interface integrated into the dashboard
-- [x] Public deployment
-- [ ] Final project polishing
-
-## Run Locally
-Create and activate a virtual environment, then install dependencies:
-
-
+```bash
+ecommerce-sales-analytics/
+│
+├── app/
+│   └── dashboard.py
+│
+├── data/
+│   ├── raw/
+│   └── processed/
+│       └── ecommerce.db
+│
+├── models/
+│   └── baseline_sales_model.joblib
+│
+├── notebooks/
+│   ├── 01_data_audit.ipynb
+│   ├── 02_business_analysis.ipynb
+│   └── 03_ml_modeling.ipynb
+│
+├── requirements.txt
+└── README.md
