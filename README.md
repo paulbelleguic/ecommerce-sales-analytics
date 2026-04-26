@@ -1,14 +1,18 @@
 # E-commerce Sales Analytics
 
-End-to-end data portfolio project focused on e-commerce sales analysis and prediction using the public Olist dataset.
+End-to-end data portfolio project focused on e-commerce sales analysis, dashboarding, and sales value prediction using the public Olist dataset.
 
-## Project Goals
-- Load and clean e-commerce sales data
-- Perform exploratory data analysis
-- Store data in a SQL database
-- Produce business-oriented SQL analyses
-- Build a sales prediction model
-- Develop a dashboard or application for insights delivery
+## Project Overview
+This project was built as a complete data workflow similar to a professional analytics / machine learning project:
+- raw data audit and cleaning
+- analytical table construction
+- business KPI analysis
+- SQL integration with SQLite
+- interactive Streamlit dashboard
+- baseline machine learning model for order value prediction
+
+## Business Objective
+The goal is to analyze e-commerce sales performance and build a first predictive model able to estimate the total value of a delivered order from a set of order-level features.
 
 ## Dataset
 - Olist Brazilian E-Commerce Public Dataset
@@ -20,14 +24,34 @@ End-to-end data portfolio project focused on e-commerce sales analysis and predi
 - SQL
 - SQLite
 - Scikit-learn
+- Joblib
 - Streamlit
 
 ## Project Structure
-- `data/`: raw and processed data
-- `notebooks/`: audit, cleaning, analysis, and modeling notebooks
-- `src/`: reusable Python code
+- `data/raw/`: raw source files
+- `data/processed/`: processed assets and SQLite database
+- `notebooks/`: audit, business analysis, and machine learning notebooks
+- `models/`: saved ML pipeline
 - `sql/`: SQL scripts and business queries
-- `app/`: dashboard or API application
+- `app/`: Streamlit dashboard application
+
+## Main Deliverables
+- Initial data audit across relational e-commerce tables
+- Order-level analytical dataset (`delivered_sales`)
+- Business KPI analysis:
+  - revenue
+  - average order value
+  - customer distribution
+  - monthly trends
+  - geography
+  - delivery performance
+- SQLite integration for SQL querying
+- Streamlit dashboard with interactive filters
+- Baseline regression model for sales value prediction
+- Prediction interface integrated into the dashboard
+
+## Key Insight
+Late deliveries are strongly associated with lower customer satisfaction. In the analysis, delayed orders received significantly lower average review scores than on-time or early deliveries.
 
 ## Current Progress
 - [x] Project setup
@@ -38,8 +62,14 @@ End-to-end data portfolio project focused on e-commerce sales analysis and predi
 - [x] SQL database integration
 - [x] Dashboard creation
 - [x] Baseline sales prediction model
-- [ ] Model improvement and tuning
-- [ ] Deployment
+- [x] Prediction interface integrated into the dashboard
+- [ ] Public deployment
+- [ ] Final project polishing
 
-## Current Focus
-The project now includes data auditing, analytical table construction, SQL-based business analysis, a Streamlit dashboard, and a first regression baseline for sales prediction.
+## Run Locally
+Create and activate a virtual environment, then install dependencies:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
