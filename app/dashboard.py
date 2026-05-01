@@ -274,7 +274,7 @@ st.markdown(
 pred_col1, pred_col2, pred_col3 = st.columns(3)
 
 with pred_col1:
-    input_purchase_year = st.selectbox("Purchase Year", sorted(df["purchase_year"].dropna().unique()))
+    input_purchase_year = st.number_input("Purchase Year", min_value=2016, max_value=2030, value=2019)
     input_purchase_month = st.selectbox("Purchase Month", list(range(1, 13)))
     input_purchase_day = st.slider("Purchase Day", 1, 31, 15)
     input_purchase_hour = st.slider("Purchase Hour", 0, 23, 12)
