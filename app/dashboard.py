@@ -1,8 +1,9 @@
 from pathlib import Path
+import os
 import sqlite3
 
-import joblib
 import pandas as pd
+import requests
 import streamlit as st
 
 
@@ -13,12 +14,7 @@ st.set_page_config(
 )
 
 DB_PATH = Path(__file__).resolve().parents[1] / "data" / "processed" / "ecommerce.db"
-MODEL_PATH = Path(__file__).resolve().parents[1] / "models" / "baseline_sales_model.joblib"
-
-
-@st.cache_resource
-def load_model():
-    return joblib.load(MODEL_PATH)
+API_URL = os.getenv("API_URL", "https://ai-backend-api-3jn5.onrender.com").rstrip("/")
 
 
 @st.cache_data
@@ -34,9 +30,6 @@ def load_data() -> pd.DataFrame:
         lambda x: "Late" if x > 0 else "On time / Early"
     )
     return df
-
-model = load_model()
-
 
 def format_currency(value: float) -> str:
     return f"${value:,.0f}"
@@ -271,12 +264,11 @@ st.caption(
     "Dashboard scope: delivered orders only."
 )
 
-model = load_model()
 st.divider()
 st.markdown("### Sales Value Prediction")
 
 st.markdown(
-    "Estimate the expected order value using the baseline machine learning model."
+    "Estimate the expected order value using the deployed FastAPI machine learning service."
 )
 
 pred_col1, pred_col2, pred_col3 = st.columns(3)
@@ -304,21 +296,28 @@ with pred_col3:
     input_n_unique_sellers = st.slider("Unique Sellers", 1, 5, 1)
     input_payment_installments_max = st.slider("Payment Installments", 1, 24, 1)
 
-input_data = pd.DataFrame(
-    {
-        "purchase_year": [input_purchase_year],
-        "purchase_month": [input_purchase_month],
-        "purchase_day": [input_purchase_day],
-        "purchase_hour": [input_purchase_hour],
-        "purchase_dayofweek": [input_purchase_dayofweek],
-        "customer_state": [input_customer_state],
-        "n_items": [input_n_items],
-        "n_unique_products": [input_n_unique_products],
-        "n_unique_sellers": [input_n_unique_sellers],
-        "payment_installments_max": [input_payment_installments_max],
-    }
-)
+payload = {
+    "purchase_year": int(input_purchase_year),
+    "purchase_month": int(input_purchase_month),
+    "purchase_day": int(input_purchase_day),
+    "purchase_hour": int(input_purchase_hour),
+    "purchase_dayofweek": int(input_purchase_dayofweek),
+    "customer_state": input_customer_state,
+    "n_items": int(input_n_items),
+    "n_unique_products": int(input_n_unique_products),
+    "n_unique_sellers": int(input_n_unique_sellers),
+    "payment_installments_max": int(input_payment_installments_max),
+}
 
 if st.button("Predict Order Value"):
-    prediction = model.predict(input_data)[0]
-    st.success(f"Predicted Order Value: ${prediction:,.2f}")
+    try:
+        response = requests.post(f"{API_URL}/predict/", json=payload, timeout=60)
+
+        if response.status_code == 200:
+            prediction = response.json()["prediction"]
+            st.success(f"Predicted Order Value: ${prediction:,.2f}")
+        else:
+            st.error(f"API error {response.status_code}: {response.text}")
+
+    except requests.RequestException as exc:
+        st.error(f"Could not reach API: {exc}")
