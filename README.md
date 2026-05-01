@@ -8,6 +8,7 @@ The goal of this project is to transform raw transactional data into a professio
 - SQL integration
 - interactive dashboarding with Streamlit
 - predictive modeling for order value estimation
+- integration with a deployed FastAPI backend for production-style predictions
 
 ## Project Overview
 
@@ -103,7 +104,7 @@ Main dashboard components:
 - geographic performance views
 - logistics insights
 - filtered exploration
-- machine learning prediction section
+- machine learning prediction section connected to a deployed API
 
 ### 7. Machine Learning
 A regression model was trained to predict **total order value**.
@@ -119,6 +120,16 @@ Evaluation metrics included:
 
 Special care was taken to avoid **data leakage** by excluding variables that directly reveal the target.
 
+### 8. API Integration
+
+The dashboard prediction form no longer loads the model directly inside Streamlit. It sends the prediction payload to a deployed FastAPI backend:
+
+```text
+https://ai-backend-api-3jn5.onrender.com/predict/
+```
+
+This separates the frontend dashboard from the model-serving layer and demonstrates a more production-oriented architecture.
+
 ## Tech Stack
 
 - **Python**
@@ -129,6 +140,8 @@ Special care was taken to avoid **data leakage** by excluding variables that dir
 - **SQLite**
 - **Streamlit**
 - **Joblib**
+- **FastAPI API integration**
+- **Requests**
 
 ## Key Insights
 
@@ -143,12 +156,15 @@ The project is deployed on Streamlit Community Cloud.
 
 Live app: https://ecommerce-sales-analytics-el8b4nsxcuw8emmu8f9idw.streamlit.app/
 
+The prediction section calls the deployed FastAPI backend rather than running local inference in the Streamlit process.
+
 ## Model Limitations
 
 - The prediction task is simplified to order value regression.
 - Feature engineering can be extended further.
 - Hyperparameter tuning remains limited.
 - No advanced model tracking or deployment pipeline has been added yet.
+- The prediction API accepts future years up to 2030 for demonstration, but predictions outside the original training period should be interpreted carefully.
 
 ## How to Run the Project
 
@@ -172,6 +188,7 @@ KPI design
 SQL usage
 dashboard development
 machine learning fundamentals
+API integration
 end-to-end project
 
 ## Author
